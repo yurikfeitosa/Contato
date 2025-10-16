@@ -1,0 +1,4 @@
+com\mycompany\Control\ContatoControl.class
+com\mycompany\Model\Contato.class
+com\mycompany\View\ContatoView.class
+com\mycompany\App\App.class
