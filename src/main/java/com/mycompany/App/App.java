@@ -18,7 +18,7 @@ public class App {
 
         boolean rodando = true;
         while (rodando) {
-            System.out.println("\n=== Sistema de Contatos (PERSISTÊNCIA MYSQL) ===");
+            System.out.println("\n=== Sistema de Contatos  ===");
             System.out.println("1. Cadastrar contato");
             System.out.println("2. Listar todos os contatos");
             System.out.println("3. Sair");

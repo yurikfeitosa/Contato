@@ -62,7 +62,7 @@ public class ContatoView {
         
         while (!voltandoAoMenuPrincipal) {
             
-            System.out.println("\n--- Lista de Contatos do MySQL ---");
+            System.out.println("\n--- Lista de Contatos ---");
            
             System.out.printf("| %-3s | %-25s | %-15s | %-30s |%n", "ID", "NOME", "TELEFONE", "E-MAIL");
             System.out.println("---------------------------------------------------------------------------------");
