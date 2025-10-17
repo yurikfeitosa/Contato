@@ -126,5 +126,58 @@ public class ContatoView {
     System.out.print("Pressione ENTER para voltar à lista...");
     scanner.nextLine(); 
 }
+    public int solicitarID(String acao) {
+    System.out.print("\nDigite o ID (Número da Linha) do contato que deseja " + acao.toUpperCase() + ": ");
+    try {
+        return Integer.parseInt(scanner.nextLine());
+    } catch (NumberFormatException e) {
+        System.out.println("ID inválido. Por favor, digite um número.");
+        return -1; 
+    }
+}
+
+/**
+ * Coleta os novos dados do contato para fins de atualização.
+ * A lógica de empacotar o nome do grupo na observação é mantida para ser
+ * resolvida pela camada Controller/DAO, assim como no método criarContato.
+ * @param idAntigo O ID do contato que será atualizado no banco.
+ * @return Um objeto Contato com os NOVOS dados e o ID antigo setado.
+ */
+public Contato criarContatoParaAtualizacao(int idAntigo) {
+    System.out.println("\n--- Digite os NOVOS dados do Contato (ID: " + idAntigo + ") ---");
+    
+    System.out.print("Novo Nome: ");
+    String nome = scanner.nextLine();
+
+    System.out.print("Novo Telefone: ");
+    String telefone = scanner.nextLine();
+
+    System.out.print("Novo E-mail: ");
+    String email = scanner.nextLine();
+    
+    System.out.print("Novo Grupo (ex: Família, Trabalho): ");
+    String grupoNome = scanner.nextLine(); // Pede o nome do grupo, como na criação.
+
+    System.out.print("Novas Observações: ");
+    String observacoes = scanner.nextLine();
+    
+    System.out.print("Nova Data de Aniversário (DD/MM/AAAA): ");
+    String dataAniversario = scanner.nextLine();
+    
+    // 1. Cria o objeto Contato com os novos dados
+    Contato contatoNovo = new Contato(nome, telefone, email, observacoes, dataAniversario);
+    
+    // 2. Empacota o nome do grupo na observação (padrão de criação)
+    String tempObs = observacoes + " [GRUPO_TEMP:" + grupoNome + "]";
+    contatoNovo.setObservacoes(tempObs);
+    
+    // 3. Define o ID antigo para que o DAO saiba qual linha atualizar
+    contatoNovo.setId(idAntigo);
+    
+    // O idGrupo pode ser um valor dummy, pois será resolvido na camada de controle
+    contatoNovo.setIdGrupo(-1); 
+
+    return contatoNovo;
+}
 }
 

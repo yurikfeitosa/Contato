@@ -18,9 +18,7 @@ public class ContatoControl {
         this.contatoDAO = new ContatoDAOImpl();
     }
 
-    /**
-     * @param contato O objeto Contato com dados temporários.
-     */
+    
     public void salvar(Contato contato) {
         String observacoesOriginais = contato.getObservacoes();
         String nomeGrupo = "Geral";
@@ -57,4 +55,19 @@ public class ContatoControl {
             return Collections.emptyList(); 
         }
     }
+    public void atualizarContato(Contato contato) {
+    try {
+        contatoDAO.atualizar(contato);
+    } catch (Exception e) {
+        System.err.println("ERRO no Controller ao atualizar Contato: " + e.getMessage());
+    }
+}
+
+public void deletarContato(int id) {
+    try {
+        contatoDAO.deletar(id);
+    } catch (Exception e) {
+        System.err.println("ERRO no Controller ao deletar Contato: " + e.getMessage());
+    }
+}
 }

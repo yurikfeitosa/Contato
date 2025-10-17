@@ -4,59 +4,82 @@ import com.mycompany.View.ContatoView;
 import com.mycompany.Control.ContatoControl;
 import com.mycompany.Model.Contato;
 import java.util.Scanner;
+import java.util.List; 
 
 public class App {
     public static void main(String[] args) {
         
-        // 1. Inicializa a View 
+        
         ContatoView view = new ContatoView();
         
-        // 2. Inicializa o Controller
+        
         ContatoControl control = new ContatoControl();
 
         Scanner scanner = new Scanner(System.in);
 
         boolean rodando = true;
         while (rodando) {
-            System.out.println("\n=== Sistema de Contatos  ===");
-            System.out.println("1. Cadastrar contato");
+            System.out.println("\n=== Sistema de Contatos ===");
+            System.out.println("1. Cadastrar novo contato");
             System.out.println("2. Listar todos os contatos");
-            System.out.println("3. Sair");
+            System.out.println("3. Atualizar contato"); 
+            System.out.println("4. Excluir contato"); 
+            System.out.println("5. Sair"); 
             System.out.print("Escolha uma opção: ");
-            
+         
             int opcao = 0;
+            
             try {
                 String linha = scanner.nextLine();
                 if (linha.isEmpty()) {
                     System.out.println("Opção inválida! Tente novamente.");
                     continue; 
                 }
-                opcao = Integer.parseInt(linha);
+                
+                opcao = Integer.parseInt(linha); 
+                
             } catch (NumberFormatException e) {
                  System.out.println("Entrada inválida! Digite um número.");
                  continue;
             }
-
+            
             switch (opcao) {
                 case 1 -> {
-                    // Obtém o novo Contato da View
                     Contato contato = view.criarContato();
-                    // Salva o contato usando o Controller
                     control.salvar(contato);
-                    // Mostra o contato recém-criado 
                     view.mostrarContato(contato);
                 }
                 case 2 -> {
-               
-                    view.mostrarTodosContatos(control.listarContatos());
+                    List<Contato> contatos = control.listarContatos();
+                    view.mostrarTodosContatos(contatos);
                 }
                 case 3 -> {
+                    List<Contato> contatos = control.listarContatos();
+                    if (contatos.isEmpty()) break;
+                    
+                    int idParaAtualizar = view.solicitarID("atualizar");
+                    if (idParaAtualizar == -1) break;
+
+                    Contato contatoAtualizado = view.criarContatoParaAtualizacao(idParaAtualizar);
+                    
+                    control.atualizarContato(contatoAtualizado);
+                }
+                case 4 -> {
+                    List<Contato> contatos = control.listarContatos();
+                    if (contatos.isEmpty()) break;
+                    
+                    int idParaDeletar = view.solicitarID("deletar");
+                    if (idParaDeletar == -1) break;
+                    
+                    control.deletarContato(idParaDeletar);
+                }
+                case 5 -> { 
                     System.out.println("Saindo do sistema...");
                     rodando = false;
                 }
                 default -> System.out.println("Opção inválida!");
             }
         }
-        scanner.close();
+        scanner.close(); 
     }
 }

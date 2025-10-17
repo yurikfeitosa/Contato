@@ -126,4 +126,70 @@ public class ContatoDAOImpl {
         if (stmt != null) stmt.close();
         conexao.fecharConexao(conn);
     }
-}}
+   }
+    public void atualizar(Contato contato) throws Exception {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    
+    String sql = "UPDATE Contato SET nome = ?, telefone = ?, email = ?, " +
+                 "observacoes = ?, dataAniversario = ?, id_grupo = ? " +
+                 "WHERE id = ?";
+    
+    try {
+        conn = conexao.obterConexao();
+        stmt = conn.prepareStatement(sql);
+        
+        stmt.setString(1, contato.getNome());
+        stmt.setString(2, contato.getTelefone());
+        stmt.setString(3, contato.getEmail());
+        stmt.setString(4, contato.getObservacoes());
+        stmt.setString(5, contato.getDataAniversario());
+        stmt.setInt(6, contato.getIdGrupo()); 
+        
+        stmt.setInt(7, contato.getId()); 
+        
+        int linhasAfetadas = stmt.executeUpdate();
+        
+        if (linhasAfetadas > 0) {
+            System.out.println("Contato ID " + contato.getId() + " atualizado com sucesso!");
+        } else {
+            System.out.println("Nenhum contato encontrado com o ID " + contato.getId() + " para atualizar.");
+        }
+        
+    } catch (SQLException e) {
+        throw new Exception("Erro ao atualizar contato no BD: " + e.getMessage());
+    } finally {
+        if (stmt != null) stmt.close();
+        conexao.fecharConexao(conn);
+    }
+}
+
+
+public void deletar(int id) throws Exception {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    
+    String sql = "DELETE FROM Contato WHERE id = ?";
+    
+    try {
+        conn = conexao.obterConexao();
+        stmt = conn.prepareStatement(sql);
+        
+        stmt.setInt(1, id);
+        
+        int linhasAfetadas = stmt.executeUpdate();
+        
+        if (linhasAfetadas > 0) {
+            System.out.println("Contato ID " + id + " deletado com sucesso do banco de dados!");
+        } else {
+            System.out.println("Nenhum contato encontrado com o ID " + id + " para deletar.");
+        }
+        
+    } catch (SQLException e) {
+        throw new Exception("Erro ao deletar contato do BD: " + e.getMessage());
+    } finally {
+        if (stmt != null) stmt.close();
+        conexao.fecharConexao(conn);
+    }
+}
+}

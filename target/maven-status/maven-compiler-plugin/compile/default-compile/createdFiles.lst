@@ -1,4 +1,7 @@
-com\mycompany\Control\ContatoControl.class
 com\mycompany\Model\Contato.class
-com\mycompany\View\ContatoView.class
+com\mycompany\dao\ContatoDAOImpl.class
 com\mycompany\App\App.class
+com\mycompany\Control\ContatoControl.class
+com\mycompany\dao\ConexaoMySQL.class
+com\mycompany\View\ContatoView.class
+com\mycompany\dao\ConexaoInterface.class

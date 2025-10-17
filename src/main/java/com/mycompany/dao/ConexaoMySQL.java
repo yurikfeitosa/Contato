@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoMySQL implements ConexaoInterface{
-    private static final String URL = "jdbc:mysql://localhost:3306/agenda_contatos";
+    private static final String URL = "jdbc:mysql://localhost:3307/agenda_contatos";
     private static final String USUARIO = "root";
-    private static final String SENHA = "yurik";
+    private static final String SENHA = "catolica";
     
     @Override
     public Connection obterConexao() throws Exception{
